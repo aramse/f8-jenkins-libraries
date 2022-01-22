@@ -6,7 +6,7 @@ class Utils {
   }
 
   static def getMergedBranch(){
-    msg = get_commit_msg()
+    msg = this.getCommitMsg()
     return msg.startsWith('Merge pull request') ? msg.split('/').last() : null
   }
 
@@ -15,6 +15,6 @@ class Utils {
   }
 
   static def slackNotify(String result) {
-    slackSend(color: result == 'SUCCESS' ? '#4ee44e' : '#ff0000', message: "${JOB_NAME} <${BUILD_URL}/display/redirect|Build #${BUILD_NUMBER}> " + result + " (last committer: <@" + getCommitter() + ">)")
+    slackSend(color: result == 'SUCCESS' ? '#4ee44e' : '#ff0000', message: "${JOB_NAME} <${BUILD_URL}/display/redirect|Build #${BUILD_NUMBER}> " + result + " (last committer: <@" + this.getCommitter() + ">)")
   }
 }
