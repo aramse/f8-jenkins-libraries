@@ -18,7 +18,7 @@ class Utils {
     def msg = "${script.env.JOB_NAME} <${script.env.BUILD_URL}/display/redirect|Build #${script.env.BUILD_NUMBER}> " + result
     def committer = this.getCommitter(script)
     if (committer) {
-      msg.plus(" (last committer: <@" + this.getCommitter(script) + ">)")
+      msg.plus(" (last committer: <@" + committer + ">)")
     }
     script.slackSend(color: result == 'SUCCESS' ? '#4ee44e' : '#ff0000', message: msg)
   }
