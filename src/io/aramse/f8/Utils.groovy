@@ -15,6 +15,11 @@ class Utils {
   }
 
   static def slackNotify(script, result) {
-    script.slackSend(color: result == 'SUCCESS' ? '#4ee44e' : '#ff0000', message: "${script.env.JOB_NAME} <${script.env.BUILD_URL}/display/redirect|Build #${script.env.BUILD_NUMBER}> " + result + " (last committer: <@" + this.getCommitter(script) + ">)")
+    def msg = "${script.env.JOB_NAME} <${script.env.BUILD_URL}/display/redirect|Build #${script.env.BUILD_NUMBER}> " + result
+    def committer = this.getCommitter(script)
+    if (committer) {
+      msg.plus(" (last committer: <@" + this.getCommitter(script) + ">)")
+    }
+    script.slackSend(color: result == 'SUCCESS' ? '#4ee44e' : '#ff0000', message: msg)
   }
 }
